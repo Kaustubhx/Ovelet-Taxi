@@ -9,6 +9,7 @@ import CustomDrawer from '../components/CustomDrawer';
 import PaymentScreen from './PaymentScreen';
 import TravelHistoryScreen from './TravelHistoryScreen';
 import SettingsScreen from './SettingsScreen';
+import UserScreen from './UserScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -82,6 +83,16 @@ const HomeScreen = () => {
                 name='Settings'
                 component={SettingsScreen}
                 options={{
+                    drawerIcon: () => (
+                        <Cog8ToothIcon size={28} color='white' />
+                    )
+                }}
+            />
+            <Drawer.Screen
+                name='UserScreen'
+                component={UserScreen}
+                options={{
+                    headerShown: false,
                     drawerIcon: () => (
                         <Cog8ToothIcon size={28} color='white' />
                     )

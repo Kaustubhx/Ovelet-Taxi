@@ -4,15 +4,16 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { TextInput } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import { auth } from '../firebase'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { useNavigation } from '@react-navigation/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, logout, selectUser } from '../slices/userSlice'
 
 const UserForm = () => {
-    const user = useSelector(selectUser);
-    const navigation = useNavigation();
     const dispatch = useDispatch();
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((userAuth) => {
@@ -21,7 +22,6 @@ const UserForm = () => {
                 dispatch(login({
                     uid: userAuth.uid,
                     email: userAuth.email,
-                    name: userAuth.displayName,
                 }))
             } else {
                 dispatch(logout())
@@ -36,10 +36,6 @@ const UserForm = () => {
         setRegister(!register);
     }
 
-    const [name, setName] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-
     const handleSignUp = () => {
         createUserWithEmailAndPassword(
             auth,
@@ -47,10 +43,17 @@ const UserForm = () => {
             password,
         ).then((authUser) => {
             console.log(authUser)
+            updateProfile(auth.currentUser, {
+                displayName: name
+            })
+            dispatch(login({
+                userName: name
+            }))
         }).catch(error => {
             alert(error.message);
             console.log(error.message);
         })
+
     }
 
     const handleLogin = () => {
@@ -191,12 +194,10 @@ const UserForm = () => {
                     </View>
                 </View>
 
-                <TouchableOpacity className='mt-8'>
+                <TouchableOpacity className='mt-8' onPress={handleSignUp}>
                     <LinearGradient start={{ x: -1, y: 0 }} end={{ x: 1, y: 0 / 5 }} className='py-3 px-7 rounded-full' colors={['#3b82f6', '#4f46e5']}>
                         <Text
-                            className='text-white text-center text-base tracking-widest font-semibold uppercase'
-                            onPress={handleSignUp}
-                        >
+                            className='text-white text-center text-base tracking-widest font-semibold uppercase'>
                             Sign Up
                         </Text>
                     </LinearGradient>
