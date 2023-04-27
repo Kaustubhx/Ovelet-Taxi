@@ -29,7 +29,7 @@ const SettingsScreen = () => {
         <View className='m-5 rounded-lg'>
             <TouchableOpacity
                 className='p-5 flex-row items-center justify-between bg-white mb-7 rounded-lg'
-                onPress={() => navigation.navigate('UserScreen')}
+                onPress={() => navigation.navigate('EditProfile')}
 
             >
                 <View className='flex-row'>

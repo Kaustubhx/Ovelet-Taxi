@@ -7,10 +7,12 @@ import HomeScreen from './screens/HomeScreen';
 import { Provider } from 'react-redux';
 import store from './store'
 import { KeyboardAvoidingView } from 'react-native';
+import { auth } from './firebase';
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  const userAuth = auth.currentUser;
 
   return (
     <NavigationContainer>
@@ -21,8 +23,12 @@ export default function App() {
           style={{ flex: 1 }}
         >
           <Stack.Navigator>
-            <Stack.Screen name='BoardingScreen' component={OnBoardingScreen} />
-            <Stack.Screen name='LoginScreen' component={LoginScreen} />
+            {!userAuth && (
+              <>
+                <Stack.Screen name='BoardingScreen' component={OnBoardingScreen} />
+                <Stack.Screen name='LoginScreen' component={LoginScreen} />
+              </>
+            )}
             <Stack.Screen name='HomeScreen' component={HomeScreen} />
           </Stack.Navigator>
         </KeyboardAvoidingView>

@@ -4,7 +4,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import Home from '../components/Home';
 import NotificationScreen from './NotificationScreen';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Bars3Icon, BellIcon, ClockIcon, Cog8ToothIcon, CreditCardIcon, HomeIcon } from 'react-native-heroicons/outline';
+import { Bars3Icon, BellIcon, ClockIcon, Cog8ToothIcon, CreditCardIcon, HomeIcon, PencilSquareIcon } from 'react-native-heroicons/outline';
 import CustomDrawer from '../components/CustomDrawer';
 import PaymentScreen from './PaymentScreen';
 import TravelHistoryScreen from './TravelHistoryScreen';
@@ -89,12 +89,12 @@ const HomeScreen = () => {
                 }}
             />
             <Drawer.Screen
-                name='UserScreen'
+                name='EditProfile'
                 component={UserScreen}
                 options={{
                     headerShown: false,
                     drawerIcon: () => (
-                        <Cog8ToothIcon size={28} color='white' />
+                        <PencilSquareIcon size={28} color='white' />
                     )
                 }}
             />

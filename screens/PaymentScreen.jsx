@@ -3,8 +3,9 @@ import React, { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/core';
 import { Bars3Icon, BellIcon } from 'react-native-heroicons/outline';
 import { LinearGradient } from 'expo-linear-gradient';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-const PaymentScreen = () => {
+const PaymentScreen = ({ delay }) => {
     const navigation = useNavigation();
 
     useEffect(() => {
@@ -24,13 +25,12 @@ const PaymentScreen = () => {
             headerRight: () => (
                 <BellIcon size={32} color='white' style={{ marginRight: 20 }} />
             )
-        })
+        });
     }, [])
 
     return (
-        <View>
-            <Text>PaymentScreen</Text>
-        </View>
+        <SafeAreaView className='flex-1'>
+        </SafeAreaView>
     )
 }
 
